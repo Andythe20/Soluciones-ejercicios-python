@@ -35,19 +35,26 @@ def filtro_jugador(filtro):
     filtro_datos = []
     with open('juegos.csv', 'r') as file:
         data = csv.reader(file)
-        for i in data:
-            if i[1] == filtro:  #aplico filtro (s/m)
-                filtro_datos.append(i[0])
-            if len(filtro_datos) == 10:
-                break
+        if filtro == '1':
+            for i in data:
+                if i[1] == filtro:  #aplico filtro (s/m)
+                    filtro_datos.append(i[0])
+                if len(filtro_datos) == 10:
+                    break
+        else:
+            for i in data:
+                if i[1] >= filtro:  #aplico filtro (s/m)
+                    filtro_datos.append(i[0])
+                if len(filtro_datos) == 10:
+                    break
         datos_jugador = filtro_datos
 
 def filtro_precio(precio_min, precio_max):
     global datos_precio   #declaro una variable de tipo lista como global para ir actualizando las listas dependiendo de que filtro ingresen
                         #primero leo el archivo para extraer los datos por filtro
     filtro_datos = []
-    with open('juegos.csv', 'r') as file:
-        data = csv.reader(file)
+    with open('juegos.csv', 'r', encoding='utf-8') as file:
+        data = csv.reader(file, ascii = True)
         for i in data:
             if float(i[2]) > precio_min and float(i[2]) < precio_max : #aplico filtro si el precio esta dentro de los precios definidos
                 filtro_datos.append(i[0])
